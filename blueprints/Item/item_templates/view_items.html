@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{%block tittle%} View Item{%endblock%}
+
+{%block content%}
+
+<section class="intro">
+    <div class="bg-image h-100" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/tables/img4.jpg');">
+        <div class="mask d-flex align-items-center h-100" style="background-color: rgba(25, 185, 234,.25);">
+            <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID NO.</th>
+                                <th scope="col">NAME</th>
+                                <th scope="col">QUANTITY</th>
+                                <th scope="col">PRICE</th>
+                                <th scope="col">PURCHASE DATE</th>
+                                <th scope="col">DESCRIPTION</th>
+                                <th scope="col">BATCH NO.</th>
+                                <th scope="col">SUPPLIER</th>
+                                <th scope="col">AMOUNT</th>
+                                <th scope="col">EXPIRATION DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            {% if all_item %}
+                                {% for row in all_item %}
+                                    <tr>
+                                        <td> {{row.item_id}} </td>
+                                        <td>{{ row.name }}</td>
+                                        <td>{{ row.quantity }}</td>
+                                        <td> {{row.purchase_price}} </td>
+                                        <td>{{ row.purchase_date }}</td>
+                                        <td>{{ row.description }}</td>
+                                        <td> {{row.batch_no}} </td>
+                                        <td>{{ row.supplier }}</td>
+                                        <td>{{ row.total_price }}</td>
+                                        <td>{{ row.expiration_date }}</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+
+                            {% else %}
+                                    <p>no item</p>
+                            {% endif %}
+
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+
+{%endblock%}

@@ -47,3 +47,9 @@ def add_item():
     return render_template('item_index.html', form=form)
 
 
+
+@item_bp.route('/view_items', methods=['GET'])
+def view_items():
+    all_item = Item.query.all()
+    return render_template('view_items.html', all_item=all_item)
+    
