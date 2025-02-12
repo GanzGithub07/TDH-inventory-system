@@ -26,6 +26,7 @@
                                 <th scope="col">SUPPLIER</th>
                                 <th scope="col">AMOUNT</th>
                                 <th scope="col">EXPIRATION DATE</th>
+                                <th colspan="2"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +34,7 @@
 
                             {% if all_item %}
                                 {% for row in all_item %}
-                                    <tr>
+                                    <tr id="item-{{ row.item_id }}">
                                         <td> {{row.item_id}} </td>
                                         <td>{{ row.name }}</td>
                                         <td>{{ row.quantity }}</td>
@@ -44,6 +45,23 @@
                                         <td>{{ row.supplier }}</td>
                                         <td>{{ row.total_price }}</td>
                                         <td>{{ row.expiration_date }}</td>
+                                        <td>
+                                            <button class="btn btn-success"
+                                                    hx-get="{{ url_for('item.update_item', id=row.item_id) }}"
+                                                    hx-target="#modal-body"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#exampleModal"
+                                                    >Edit</button>
+
+
+
+                                            <button class="btn btn-danger"
+                                                    hx-delete="{{ url_for('item.delete_item', id=row.item_id) }}"
+                                                    hx-target="#item-{{ row.item_id }}" 
+                                                    hx-swap="outerHTML"
+                                                    onclick="return confirm('Are you sure?');">
+                                                    Delete</button>
+                                        </td>
                                         
                                     </tr>
                                 {% endfor %}
@@ -64,6 +82,6 @@
     </div>
 </section>
 
-    
+{% include 'modal.html' %}
 
 {%endblock%}

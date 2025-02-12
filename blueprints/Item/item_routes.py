@@ -20,32 +20,61 @@ def index():
 @login_required
 def add_item():
     form = ItemForm()
-    if form.validate_on_submit():
-        # Create an Item object and populate it with form data
-        new_item = Item(
-            item_id=form.item_id.data,
-            name=form.name.data,
-            quantity=form.quantity.data,
-            category=form.category.data,
-            purchase_price=form.purchase_price.data,
-            selling_price=form.selling_price.data,
-            purchase_date=form.purchase_date.data,
-            description=form.description.data,
-            batch_no=form.batch_no.data,
-            supplier=form.supplier.data,
-            total_price=form.total_price.data,
-            expiration_date=form.expiration_date.data
-        )
+    if request.method == 'POST' and form.validate_on_submit():
+        item = Item()
+        form.populate_obj(item) #populate the item instance with the request form, WTForm automatically populate form with the request form data
+        
         
         # Save the new item to the database
-        db.session.add(new_item)
+        db.session.add(item)
         db.session.commit()
         
         flash("Item added successfully!", "success")
         return redirect(url_for('item.index'))
-    
-    return render_template('item_index.html', form=form)
+    elif request.method == 'GET':     
+        return render_template('item_index.html', form=form)
 
+
+@item_bp.route('/delete/<int:id>', methods=['DELETE'])
+@login_required
+def delete_item(id):
+    try:
+        item = Item.query.get_or_404(id)
+        db.session.delete(item)
+        db.session.commit()
+        flash(f'{item.name} successfully deleted')
+        return '', 200
+    
+    except Exception as e:
+        flash(f'Error: {e}')
+        return redirect(url_for('item.index'))
+    
+    
+@item_bp.route('/update/<int:id>', methods=['PUT', 'GET'])
+@login_required
+def update_item(id):
+    if request.method == 'GET':
+        item = Item.query.get_or_404(id)
+        
+        form = ItemForm(obj=item) #fill the item form with the data of queried data
+        
+        
+        print(form.item_id)
+        
+        return render_template('partials/item_form.html', form=form) 
+    
+    elif request.method == 'PUT':
+        try:
+            form = ItemForm()
+            item = Item.query.get_or_404(id)
+            form.populate_obj(item)
+            
+            item.modified = True
+            db.session.commit()
+        except Exception as e:
+            flash(e)
+            return redirect(url_for('item.index'))
+        
 
 
 @item_bp.route('/view_items', methods=['GET'])
