@@ -66,6 +66,8 @@
         <div class="mb-3">
             <button class="btn btn-success"
                     hx-put="{{ url_for('item.update_item', id=form.item_id.data) }}"
+                    hx-target="html"
+                    hx-boost="true"
                     >Update </button>
         </div>
     </form>

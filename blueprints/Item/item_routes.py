@@ -56,7 +56,7 @@ def update_item(id):
     if request.method == 'GET':
         item = Item.query.get_or_404(id)
         
-        form = ItemForm(obj=item) #fill the item form with the data of queried data
+        form = ItemForm(obj=item) #fill the item form with the data of queried item
         
         
         print(form.item_id)
@@ -71,9 +71,12 @@ def update_item(id):
             
             item.modified = True
             db.session.commit()
+            
+            all_item = Item.query.all()
+            return render_template('view_items.html', all_item=all_item)
         except Exception as e:
             flash(e)
-            return redirect(url_for('item.index'))
+            return "", 500
         
 
 
