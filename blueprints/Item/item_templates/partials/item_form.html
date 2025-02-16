@@ -1,0 +1,74 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Add Item</h1>
+    <form method="PUT" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.item_id.label(class="form-label") }}
+            {{ form.item_id(class="form-control", placeholder="Enter Item ID") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control", placeholder="Enter Item Name") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.quantity.label(class="form-label") }}
+            {{ form.quantity(class="form-control", placeholder="Enter Quantity") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.category.label(class="form-label") }}
+            {{ form.category(class="form-control", placeholder="Enter Category") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.purchase_price.label(class="form-label") }}
+            {{ form.purchase_price(class="form-control", placeholder="Enter Purchase Price") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.selling_price.label(class="form-label") }}
+            {{ form.selling_price(class="form-control", placeholder="Enter Selling Price") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.purchase_date.label(class="form-label") }}
+            {{ form.purchase_date(class="form-control", placeholder="Enter Purchase Date") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.description.label(class="form-label") }}
+            {{ form.description(class="form-control", placeholder="Enter Description") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.batch_no.label(class="form-label") }}
+            {{ form.batch_no(class="form-control", placeholder="Enter Batch No.") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.supplier.label(class="form-label") }}
+            {{ form.supplier(class="form-control", placeholder="Enter Supplier") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.total_price.label(class="form-label") }}
+            {{ form.total_price(class="form-control", placeholder="Enter Total Price") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.expiration_date.label(class="form-label") }}
+            {{ form.expiration_date(class="form-control", placeholder="Enter Expiration Date") }}
+        </div>
+
+        <div class="mb-3">
+            <button class="btn btn-success"
+                    hx-put="{{ url_for('item.update_item', id=form.item_id.data) }}"
+                    hx-target="html"
+                    hx-boost="true"
+                    >Update </button>
+        </div>
+    </form>
+</div>
