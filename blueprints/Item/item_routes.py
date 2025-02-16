@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, flash, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app import db  # Assuming you have set up SQLAlchemy in your app
 from blueprints.Item.item_forms import ItemForm  # Import the form
 from models.Item import Item  # Import the Item model
+from blueprints.UserLog.user_log_routes import log_action
 # If `auth_form.py` is in the `blueprints` folder
 
 
@@ -42,6 +43,10 @@ def delete_item(id):
         item = Item.query.get_or_404(id)
         db.session.delete(item)
         db.session.commit()
+        
+        #log user action
+        log_action(current_user.id, 'Deleted', f'{item.item_id, item.name}' , None)
+        
         flash(f'{item.name} successfully deleted')
         return '', 200
     
