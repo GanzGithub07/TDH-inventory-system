@@ -50,12 +50,13 @@
                                                 <th scope="col">SUPPLIER</th>
                                                 <th scope="col">AMOUNT</th>
                                                 <th scope="col">EXPIRATION DATE</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% if all_item %}
                                                 {% for row in all_item %}
-                                                    <tr>
+                                                    <tr id="row-{{row.item_id}}">
                                                         <td>{{ row.item_id }}</td>
                                                         <td>{{ row.name }}</td>
                                                         <td>{{ row.category }}</td>
@@ -67,6 +68,17 @@
                                                         <td>{{ row.supplier }}</td>
                                                         <td>{{ row.total_price }}</td>
                                                         <td>{{ row.expiration_date }}</td>
+                                                        <td>
+                                                            <button>
+
+                                                            </button>
+                                                            <button class="btn btn-danger"
+                                                                    hx-delete="{{ url_for('item.delete_item', id=row.item_id) }}"
+                                                                    hx-target="#row-{{row.item_id}}"
+                                                                    hx-swap="delete">
+                                                                Delete
+                                                            </button>
+                                                        </td>
                                                     </tr>
                                                 {% endfor %}
                                             {% else %}

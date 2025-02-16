@@ -25,7 +25,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(dashboard_bp, url_prefix='/dashboard')
     app.register_blueprint(item_bp, url_prefix='/item')
-    app.register_blueprint(log_bp, url_prefix='/log')
+    app.register_blueprint(log_bp, url_prefix='/test_logs')
     
     #userloader
     @login_manager.user_loader

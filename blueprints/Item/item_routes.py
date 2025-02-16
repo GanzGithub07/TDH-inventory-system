@@ -45,7 +45,7 @@ def delete_item(id):
         db.session.commit()
         
         #log user action
-        log_action(current_user.id, 'Deleted', f'{item.item_id, item.name}' , None)
+        log_action(current_user.id, 'Deleted', f'{item.item_id, item.name}' , 23)
         
         flash(f'{item.name} successfully deleted')
         return '', 200

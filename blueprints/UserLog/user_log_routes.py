@@ -5,7 +5,9 @@ from models.UserLog import UserLog
 
 
 
-log_bp = Blueprint("logs", __name__, template_folder="user_logs_templates")
+log_bp = Blueprint("log", __name__, template_folder="user_log_templates", static_folder="user_log_static")
+
+
 
 def log_action(user_id, action ,item_id, quantity=None):
     ip_address = request.remote_addr  # Capture user's IP
@@ -15,8 +17,14 @@ def log_action(user_id, action ,item_id, quantity=None):
     
     
 
-log_bp.route('/', methods=['GET'])
+log_bp.route('/')
+@login_required
 def logs_index():
     all_log = UserLog.query.all()
     
     return render_template('user_log_index.html', all_log=all_log)
+
+log_bp.route('/test')
+def log_test():
+    return 'log test'
+
