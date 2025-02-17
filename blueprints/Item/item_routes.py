@@ -42,16 +42,17 @@ def delete_item(id):
     try:
         item = Item.query.get_or_404(id)
         db.session.delete(item)
-        db.session.commit()
+        
         
         #log user action
-        log_action(current_user.id, 'Deleted', f'{item.item_id, item.name}' , 23)
+        log_action(current_user.id, 'Deleted', item.item_id , item.quantity)
         
+        db.session.commit()
         flash(f'{item.name} successfully deleted')
-        return '', 200
+        return ''
     
     except Exception as e:
-        flash(f'Error: {e}')
+        print(f'Error: {e}')
         return redirect(url_for('item.index'))
     
     

@@ -17,14 +17,10 @@ def log_action(user_id, action ,item_id, quantity=None):
     
     
 
-log_bp.route('/')
+@log_bp.route('/')
 @login_required
 def logs_index():
     all_log = UserLog.query.all()
     
     return render_template('user_log_index.html', all_log=all_log)
-
-log_bp.route('/test')
-def log_test():
-    return 'log test'
 

@@ -1,5 +1,6 @@
 from datetime import datetime
 from .User import User
+from .Item import Item
 from extensions import db
 
 class UserLog(db.Model):
@@ -10,3 +11,6 @@ class UserLog(db.Model):
     action = db.Column(db.String(255), nullable=False)
     ip_address = db.Column(db.String(50), nullable=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    item = db.relationship('Item', foreign_keys=[item_id], backref='logs')
+    user = db.relationship('User', backref='log')
